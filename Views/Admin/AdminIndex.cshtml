@@ -1,0 +1,84 @@
+﻿@{
+	int row = 1;
+}
+
+<h3>List of Availiable Jobs</h3>
+
+
+<a href="/Admin/CreateJob"><button class="btn-outline-primary float-right">+ NEW Job</button></a>
+
+
+<table class="table table-hover">
+	<thead class="thead-dark">
+		<tr>
+			<th>Job ID</th>
+			<th>Job Title</th>
+			<th>Job Description</th>
+			<th>Company</th>
+			<th>Salary</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody >
+		@if(@ViewBag.status  != "Update")
+		{
+			@foreach (JobModel job in @ViewBag.jobList)
+			{
+				<tr>
+					<td>@job.JobId</td>
+					<td>@job.JobTitle</td>
+					<td>@job.JobDescription</td>
+					<td>@job.CompanyName</td>
+					<td>@job.Salary</td>
+					<td>
+						<div>
+							<a href="/Admin/AdminIndex?opnMode=Update&jobId=@job.JobId">
+								<button class="btn btn-outline-secondary">Update</button>
+							</a>
+							<a href="/Admin/AdminIndex?opnMode=Delete&jobId=@job.JobId"><button class="btn btn-outline-danger">Delete</button></a>
+						</div>
+					</td>
+				</tr>
+			}
+		}
+		else
+		{
+			
+			@foreach (JobModel job in @ViewBag.jobList)
+				{
+					@if(@ViewBag.jobId != job.JobId.ToString())
+					{
+						<tr>
+							<td>@job.JobId</td>
+							<td>@job.JobTitle</td>
+							<td>@job.JobDescription</td>
+							<td>@job.CompanyName</td>
+							<td>@job.Salary</td>
+							<td></td>
+						</tr>
+					}
+					else
+					{
+						<form method="post" asp-controller="Admin" asp-action="AdminIndex">
+							<input name="JobId" value="@job.JobId" size="1" type="hidden" />
+						<tr>
+							<td>@job.JobId</td>
+							<td><input name="JobTitle" value="@job.JobTitle" /></td>
+							<td><input name="JobDescription" value="@job.JobDescription" /></td>
+							<td><input name="CompanyName" value="@job.CompanyName" /></td>
+							<td><input name="Salary" value="@job.Salary" /></td>
+							<td>
+								<div>
+									<button class="btn btn-outline-secondary" type="submit">Confirm</button>
+									<a href="/Admin/AdminIndex" class="btn btn-outline-danger">Cancel</a>
+								</div>
+							</td>
+						</tr>
+						</form>
+					}
+					
+				}
+			}
+	</tbody>
+
+</table>

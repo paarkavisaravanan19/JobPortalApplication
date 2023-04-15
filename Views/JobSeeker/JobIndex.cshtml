@@ -1,0 +1,105 @@
+﻿
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    * {
+        box-sizing: border-box;
+    }
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .topnav {
+        overflow: hidden;
+    }
+
+        .topnav .search-container {
+            float: right;
+        }
+
+        .topnav input[type=text] {
+            padding: 10px;
+            margin-top: 8px;
+            font-size: 17px;
+            border: none;
+        }
+
+        .topnav .search-container button {
+            float: right;
+            padding: 6px 10px;
+            margin-top: 8px;
+            margin-right: 16px;
+            background: #ddd;
+            font-size: 17px;
+            border: none;
+            cursor: pointer;
+        }
+
+    media screen and (max-width: 900px) {
+        .topnav .search-container
+
+    {
+        float: none;
+    }
+
+    .topnav .search-container button:hover {
+        background: #ccc;
+    }
+
+    .topnav a, .topnav input[type=text], .topnav .search-container button {
+        float: none;
+        display: block;
+        text-align: left;
+        width: 100%;
+        margin: 0;
+        padding: 14px;
+    }
+
+    .topnav input[type=text] {
+        border: 1px solid #ccc;
+    }
+
+    }
+</style>
+
+<body>
+
+    @using (Html.BeginForm("JobIndex", "JobSeeker", FormMethod.Post))
+    {
+        <div class="topnav">
+            <div class="search-container">
+                    <input type="text" placeholder="Search" name="search">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+    }
+    <br />
+    <br />
+    @if((bool)ViewData["ShowDiv"])
+    {
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Job ID</th>
+                <th>Job Title</th>
+                <th>Job Description</th>
+                <th>Company</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (JobModel job in @ViewBag.jobList)
+            {
+                <tr>
+                    <td>@job.JobId</td>
+                    <td>@job.JobTitle</td>
+                    <td>@job.JobDescription</td>
+                    <td>@job.CompanyName</td>
+                    <td>@job.Salary</td>
+                </tr>
+            }
+        </tbody>
+        </table>
+    }
+    
+</body>
